@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        aside {
+            width: 260px;
+            background-color: #343a40;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+            justify-content: flex-start;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            background-color: #495057;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-bottom: 20px; /* Отступ для кнопок */
+            width: 80%; /* Фиксированная ширина кнопок */
+        }
+
+        .nav-link:hover {
+            background-color: #6c757d;
+            transform: translateX(5px);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 40px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            max-width: 600px;
+            color: #555;
+            text-align: center;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <aside>
+        <a href="{% url 'index' %}" class="nav-link">Главное меню</a> <!-- Это кнопка -->
+    </aside>
+
+    <main>
+        <div class="content">
+            <h1>Корзина</h1>
+            <p>
+                Ваша корзина пока пуста. Пожалуйста, добавьте товары в корзину, чтобы продолжить покупки.
+            </p>
+        </div>
+    </main>
+</body>
+</html>

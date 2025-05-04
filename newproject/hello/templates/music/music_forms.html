@@ -1,0 +1,8 @@
+<h1>{% if form.instance.pk %} Редактировать позицию {%else%} Добавить Новую позицию {%endif%} </h1>
+
+<from method = "post" enctype = "multipart/form-data">
+    {% csrf_token %}
+    {{form.as_pk}}
+    <button type="submit"> Сохранить </button>
+</form>
+<a href = "{% url 'music_list'%}"> Вернуться к списку </a>

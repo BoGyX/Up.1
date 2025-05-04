@@ -1,0 +1,7 @@
+<h1> Удалить позицию {{music.name}} </h1>
+<from method = "post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit"> Удалить </button>
+</form>
+<a href = "{% url 'music_list'%}"> Вернуться к списку </a>

@@ -1,0 +1,12 @@
+<h1>Музыка</h1>
+<a href = "{%url 'music_create'%}"> Добавить новую позицию </a>
+
+<ul>
+    {% for music in music%}
+    <li>
+             <a href = "{%url 'music_create' music.pk %}"> {{music.name}} </a>
+             <a href = "{%url 'music_create' music.pk%}"> Редактировать </a>
+             <a href = "{%url 'music_create' music.pk%}"> Удалить </a>
+    </li>
+    {% endfor %}
+</ul>
