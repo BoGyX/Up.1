@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Arial', sans-serif;
+    }
+    .auth-container {
+        max-width: 400px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 5px;
+    }
+    input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+    input:focus {
+        outline: none;
+        border-color: #6e8efb;
+        box-shadow: 0 0 5px rgba(110, 142, 251, 0.3);
+    }
+    .error, .success {
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .error { color: #e63946; }
+    .success { color: #28a745; }
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #6e8efb;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    button:hover {
+        background: #5a78e0;
+    }
+    .login-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #555;
+    }
+    .login-link a {
+        color: #6e8efb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="auth-container">
+    <h2>Регистрация</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="error">{{ field.errors.0 }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+            <p class="error">{{ form.non_field_errors.0 }}</p>
+        {% endif %}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p class="login-link">Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+</div>
+{% endblock %}

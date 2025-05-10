@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h1>Главная страница</h1>
+
+    <div class="content">
+        <h2>О музыке</h2>
+        <p>
+            Музыка – это искусство, которое сопровождает человека на протяжении всей его жизни...
+        </p>
+
+        <h2>Популярные жанры музыки</h2>
+        <p>Существует множество музыкальных жанров...</p>
+
+        <div class="genres">
+            <ul class="genre-list">
+                <li class="genre-item"><strong>Поп</strong> – популярная музыка...</li>
+                <li class="genre-item"><strong>Рок</strong> – жанр с гитарными рифами...</li>
+                <li class="genre-item"><strong>Джаз</strong> – импровизация и свобода исполнения...</li>
+                <li class="genre-item"><strong>Классика</strong> – Бах, Моцарт, Бетховен...</li>
+                <li class="genre-item"><strong>Электронная</strong> – синтезаторы и компьютеры...</li>
+            </ul>
+        </div>
+
+        <div class="image-gallery">
+            <img src="{% static 'images/album1.jpg' %}" alt="Альбом 1">
+            <img src="{% static 'images/album2.jpg' %}" alt="Альбом 2">
+            <img src="{% static 'images/album3.jpg' %}" alt="Альбом 3">
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}О компании{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1>О компании</h1>
+    <p>
+        Мы — инновационная компания, специализирующаяся на производстве и продаже высококачественной продукции. 
+        Наша цель — обеспечить клиентов лучшим обслуживанием и надежными товарами.
+    </p>
+
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.32123123123123!2d37.617633!3d55.755826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z0JHQvtC70YzQvNGB0YLRgNC40L3QsA!5e0!3m2!1sru!2sru!4v1698771234567!5m2!1sru!2sru" 
+                width="90%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+        </iframe>
+    </div>
+</div>
+
+<div class="contacts">
+    <strong>Контакты:</strong>
+    Телефон: +7 (977) 806-76-72<br>
+    Email: axmed006006@h,mail.com<br>
+    Адрес: г. Москва, ул. Примерная, д. 1
+</div>
+{% endblock %}

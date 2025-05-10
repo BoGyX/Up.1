@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .cart-inner {
+        padding: 30px 20px;
+        box-sizing: border-box;
+    }
+
+    .cart-title {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: transform 0.2s ease;
+        text-align: center;
+        padding-bottom: 15px;
+        position: relative;
+    }
+
+    .card img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-bottom: 1px solid #eee;
+    }
+
+    .card h3 {
+        font-size: 16px;
+        margin: 12px 0 8px;
+        color: #222;
+    }
+
+    .card p {
+        font-size: 13px;
+        color: #666;
+        padding: 0 12px;
+        margin: 5px 0;
+    }
+
+    .card .quantity-control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+    }
+
+    .card .quantity-control button {
+        padding: 5px 10px;
+        background-color: #495057;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+    .card .quantity-control button:hover {
+        background-color: #6c757d;
+    }
+
+    .total-section {
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .order-button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        margin-left: 20px;
+    }
+
+    .order-button:hover {
+        background-color: #218838;
+    }
+
+    @media (max-width: 1024px) {
+        .card-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .card-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="cart-inner">
+    <h1 class="cart-title">Ваша корзина</h1>
+
+    {% if cart %}
+        <div class="card-grid">
+            {% for item_id, item in cart.items %}
+            <div class="card">
+                {% if item.image_url %}
+                    <img src="{{ item.image_url }}" alt="{{ item.name }}">
+                {% else %}
+                    <img src="{% static 'images/default.jpg' %}" alt="Нет изображения">
+                {% endif %}
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.artist }} | {{ item.category }}</p>
+                <p><strong>{{ item.price|floatformat:2 }} ₽</strong></p>
+                <div class="quantity-control">
+                    <form method="post" action="{% url 'update_cart' item_id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="decrease">
+                        <button type="submit">-</button>
+                    </form>
+                    <span>{{ item.quantity }}</span>
+                    <form method="post" action="{% url 'update_cart' item_id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="increase">
+                        <button type="submit">+</button>
+                    </form>
+                </div>
+                <p>Итого: <strong>{{ item.subtotal|floatformat:2 }} ₽</strong></p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="total-section">
+            Общая сумма: {{ total|floatformat:2 }} ₽
+            <form method="post" action="{% url 'clear_cart' %}">
+                {% csrf_token %}
+                <button type="submit" class="order-button">Оформить заказ</button>
+            </form>
+        </div>
+    {% else %}
+        <p style="text-align: center;">Ваша корзина пуста.</p>
+    {% endif %}
+</div>
+{% endblock %}
